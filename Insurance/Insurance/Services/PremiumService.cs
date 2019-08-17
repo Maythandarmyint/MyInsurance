@@ -2,6 +2,7 @@
 using Insurance.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -20,11 +21,18 @@ namespace Insurance.Services
         {
 
             decimal premium = 0;
-            Occupation ocup = repoOccupation.FindSingle(x => x.ID == occupIationID);
-            if (ocup != null)
+            try
             {
-                decimal factor = ocup.OccupationRating.Factor;
-                premium = (deathcoveramount * factor * age) / (1000 * 12);
+                Occupation ocup = repoOccupation.FindSingle(x => x.ID == occupIationID);
+                if (ocup != null)
+                {
+                    decimal factor = ocup.OccupationRating.Factor;
+                    premium = (deathcoveramount * factor * age) / (1000 * 12);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message + "\n" + e.StackTrace);
             }
             return premium;
         }
@@ -36,9 +44,9 @@ namespace Insurance.Services
             {
                 occupations = repoOccupation.GetAll().ToList();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Debug.WriteLine(e.Message + "\n" + e.StackTrace);
             }
             return occupations;
         }

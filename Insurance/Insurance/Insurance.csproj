@@ -1007,6 +1007,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DatabaseScripts\" />
     <Folder Include="Views\Member\" />
   </ItemGroup>
   <ItemGroup>

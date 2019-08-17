@@ -12,25 +12,30 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="formGroupExampleInput">Name</label>
-                        <input type="text" class="form-control" id="Name" ng-model="Name" placeholder="Name">
+                        <input type="text" class="form-control" id="Name" name="Name" ng-model="Name" placeholder="Name" ng-required="true">
+                        <span ng-show="showValidationMsg && !CreateForm.Name.$valid">Name is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Age</label>
-                        <input type="text" class="form-control" id="Age" ng-model="Age" placeholder="Age"  maxlength="2">
+                        <input type="text" class="form-control" id="Age" name="Age" ng-model="Age" placeholder="Age" maxlength="2" ng-required="true">
+                        <span ng-if="showValidationMsg && !CreateForm.Age.$valid">Age is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Date Of Birth</label>
-                        <input type="text" class="form-control" id="Age" ng-model="DateOfBirth" placeholder="dd/mm/yyyy">
+                        <input type="text" class="form-control" id="Age" ng-model="DateOfBirth" name="DateOfBirth" placeholder="dd/mm/yyyy" ng-required="true">
+                        <span ng-if="showValidationMsg && !CreateForm.DateOfBirth.$valid">Date Of Birth is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Occupation</label>
-                        <select class="form-control" id="Occupation" ng-model="Occupation"
+                        <select class="form-control" id="Occupation" ng-model="Occupation" name="Occupation"
                                 ng-options="ocu.ID as ocu.Text for ocu in occupationList"
-                                ng-change="occupationChanged()"></select>
+                                ng-change="occupationChanged()" ng-required="true"></select>
+                        <span ng-if="showValidationMsg && !CreateForm.Occupation.$valid">Occupation is required!</span>
                     </div>
                     <div class="form-group">
-                        <label for="formGroupExampleInput">Death</label>
-                        <input type="text" class="form-control" id="Death" ng-model="Death" maxlength="10">
+                        <label for="formGroupExampleInput">Death - Sum Insured</label>
+                        <input type="text" class="form-control" id="DeathCoverAmount" name="DeathCoverAmount" ng-model="DeathCoverAmount" maxlength="10" ng-required="true">
+                        <span ng-if="showValidationMsg && !CreateForm.DeathCoverAmount.$valid">Death - Sum Insured is required!</span>
                     </div>
                     <div class="form-group">
                         <label for="formGroupExampleInput">Premium</label>
