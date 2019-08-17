@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="InsuranceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Occupation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OccupationType" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="RatingID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OccupationRating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Rating" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Factor" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Occupatio__Ratin__398D8EEE">
+          <End Role="OccupationRating" Type="Self.OccupationRating" Multiplicity="1" />
+          <End Role="Occupation" Type="Self.Occupation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OccupationRating">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Occupation">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InsuranceModelStoreContainer">
+          <EntitySet Name="Occupation" EntityType="Self.Occupation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OccupationRating" EntityType="Self.OccupationRating" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Occupatio__Ratin__398D8EEE" Association="Self.FK__Occupatio__Ratin__398D8EEE">
+            <End Role="OccupationRating" EntitySet="OccupationRating" />
+            <End Role="Occupation" EntitySet="Occupation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InsuranceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Occupation">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OccupationType" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RatingID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OccupationRating" Relationship="Self.FK__Occupatio__Ratin__398D8EEE" FromRole="Occupation" ToRole="OccupationRating" />
+        </EntityType>
+        <EntityType Name="OccupationRating">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Rating" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Factor" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Occupations" Relationship="Self.FK__Occupatio__Ratin__398D8EEE" FromRole="OccupationRating" ToRole="Occupation" />
+        </EntityType>
+        <Association Name="FK__Occupatio__Ratin__398D8EEE">
+          <End Role="OccupationRating" Type="Self.OccupationRating" Multiplicity="1" />
+          <End Role="Occupation" Type="Self.Occupation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OccupationRating">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Occupation">
+              <PropertyRef Name="RatingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InsuranceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Occupations" EntityType="Self.Occupation" />
+          <EntitySet Name="OccupationRatings" EntityType="Self.OccupationRating" />
+          <AssociationSet Name="FK__Occupatio__Ratin__398D8EEE" Association="Self.FK__Occupatio__Ratin__398D8EEE">
+            <End Role="OccupationRating" EntitySet="OccupationRatings" />
+            <End Role="Occupation" EntitySet="Occupations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InsuranceModelStoreContainer" CdmEntityContainer="InsuranceEntities">
+          <EntitySetMapping Name="Occupations">
+            <EntityTypeMapping TypeName="InsuranceModel.Occupation">
+              <MappingFragment StoreEntitySet="Occupation">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OccupationType" ColumnName="OccupationType" />
+                <ScalarProperty Name="RatingID" ColumnName="RatingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OccupationRatings">
+            <EntityTypeMapping TypeName="InsuranceModel.OccupationRating">
+              <MappingFragment StoreEntitySet="OccupationRating">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Factor" ColumnName="Factor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

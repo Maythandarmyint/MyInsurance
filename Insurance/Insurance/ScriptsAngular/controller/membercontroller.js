@@ -14,11 +14,11 @@ myApp.controller('MemberController', function ($scope, PremiumDataOp) {
     };
 
     function getOccupationList() {
-        $scope.occupationList = PremiumDataOp.getOccupationList().then(function (data) {
-            $scope.occupationList = genericSuccess(data);
+        PremiumDataOp.getOccupationList().then(function (data) {
+            successHandler(data);
         });
-        var genericSuccess = function (res) {
-            return res.data;
+        var successHandler = function (retdata) {
+            $scope.occupationList = retdata.data;
         }
     }
 
@@ -33,8 +33,11 @@ myApp.controller('MemberController', function ($scope, PremiumDataOp) {
             }
 
             PremiumDataOp.getPremiumAmount(para).then(function (data) {
-                $scope.Premium = data.data;
+                successHandler(data);
             });
+            var successHandler = function (retdata) {
+                $scope.Premium = retdata.data;
+            }
         }
     }
 
