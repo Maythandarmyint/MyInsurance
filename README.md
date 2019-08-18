@@ -1,6 +1,6 @@
 # MyInsurance
 
-Angular JS, C#, .Net Framework 4.5, Visual Studio 2017 in one solution
+Angular JS, C#, .Net Framework 4.5, Visual Studio 2017 in one solution.
 Dependency injection (Simple Injector)
 
 1)Create sql database with the name Insurance or your preferred db name.
